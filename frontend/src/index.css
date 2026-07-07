@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Inter", sans-serif;
+
+  --color-primary: #135bec;
+  --color-background-light: #f6f6f8;
+  --color-background-dark: #15151f;
+
+  --color-surface: #ffffff;
+  --color-surface-container: #f1f5f9;
+  --color-surface-container-low: #f8fafc;
+  --color-surface-container-high: #e2e8f0;
+  --color-surface-container-highest: #cbd5e1;
+
+  --color-secondary: #64748b;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #475569;
+  --color-outline: #e2e8f0;
+
+  --color-tertiary: #10b981;
+  --color-error: #ef4444;
+  --color-error-container: #fee2e2;
+  --color-on-error-container: #991b1b;
+  --color-primary-container: #dbeafe;
+}
+
+:root {
+  font-family: var(--font-display);
+}
+
+body {
+  margin: 0;
+  min-height: max(884px, 100dvh);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pb-safe-area {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.metric-card {
+  position: relative;
+  min-height: 11rem;
+  overflow: hidden;
+  border: 1px solid var(--color-outline);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+@media (min-width: 640px) {
+  .metric-card {
+    padding: 1.25rem;
+  }
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+}
+
+.metric-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 85% 10%, rgba(19, 91, 236, 0.16), transparent 35%);
+  transition: opacity 300ms ease;
+}
+
+.metric-card-updated {
+  animation: card-update 850ms ease-out;
+}
+
+.metric-card-updated::after {
+  opacity: 1;
+  animation: glow-fade 900ms ease-out forwards;
+}
+
+.update-dot {
+  display: inline-flex;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 9999px;
+  background: #10b981;
+  box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.12);
+  animation: update-pulse 900ms ease-out;
+}
+
+@keyframes card-update {
+  0% {
+    transform: translateY(0) scale(1);
+    border-color: rgba(19, 91, 236, 0.55);
+  }
+  35% {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(19, 91, 236, 0.9);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    border-color: var(--color-outline);
+  }
+}
+
+@keyframes glow-fade {
+  0% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+@keyframes update-pulse {
+  0% { transform: scale(0.8); opacity: 0.3; }
+  45% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.dark {
+  /* Paleta oscura inspirada en el diseño aportado */
+  --color-primary: #00bfff;
+  --color-background-dark: #15151f;
+  --color-surface: #28283d;
+  --color-surface-container: #222234;
+  --color-surface-container-low: #1b1b29;
+  --color-surface-container-high: #32324a;
+  --color-surface-container-highest: #3d3d5c;
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #d5d5e3;
+  --color-outline: #3d3d5c;
+  --color-secondary: #a0a0b8;
+  --color-primary-container: rgba(0, 191, 255, 0.16);
+  --color-error-container: rgba(239, 68, 68, 0.16);
+  --color-on-error-container: #fecaca;
+  color-scheme: dark;
+}
+
+.dark body,
+.dark .bg-background-dark {
+  background-color: #15151f;
+}
+
+/* Superficies principales */
+.dark .metric-card,
+.dark article.bg-white,
+.dark section.bg-white,
+.dark div.bg-white,
+.dark .dark\:bg-slate-900 {
+  background-color: #28283d;
+  border-color: #3d3d5c;
+}
+
+.dark .dark\:bg-slate-800,
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: #222234;
+}
+
+.dark .dark\:border-slate-800,
+.dark .dark\:border-slate-700,
+.dark .border-slate-200,
+.dark .border-outline {
+  border-color: #3d3d5c;
+}
+
+.dark .text-slate-400,
+.dark .text-secondary,
+.dark .text-on-surface-variant {
+  color: #a0a0b8;
+}
+
+.dark .text-slate-900,
+.dark .text-on-surface {
+  color: #ffffff;
+}
+
+.dark .metric-card {
+  background: rgba(40, 40, 61, 0.98);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+.dark .metric-card:hover {
+  border-color: rgba(0, 191, 255, 0.55);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(0, 191, 255, 0.12);
+}
+
+.dark .metric-card::after {
+  background: radial-gradient(circle at 85% 10%, rgba(0, 191, 255, 0.18), transparent 36%);
+}
+
+/* Controles, campos y selector de tema */
+.dark input,
+.dark select,
+.dark button[class*="border"] {
+  border-color: #3d3d5c;
+}
+
+.dark input,
+.dark select {
+  background-color: #1b1b29;
+  color: #ffffff;
+}
+
+.dark input::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(.78);
+}
+
+.dark .dark\:bg-primary {
+  background-color: #00bfff;
+}
+
+.dark .dark\:text-blue-300 {
+  color: #7ddcff;
+}
+
+/* Scrollbar discreta en modo oscuro */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dark ::-webkit-scrollbar-track { background: #15151f; }
+.dark ::-webkit-scrollbar-thumb {
+  background: #3d3d5c;
+  border: 2px solid #15151f;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb:hover { background: #56567a; }
+
